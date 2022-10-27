@@ -30,6 +30,12 @@ request.queryParam("q","beng");
 Response response = request.get("https://content-qtripdynamic-qa-backend.azurewebsites.net/api/v1/cities");
 //1.After successful search, the status code must be 200
 response.then().assertThat().statusCode(200);
+     JsonPath j = new JsonPath(response.asString());
+
+      //length of JSON array
+      int lengthOfArray = j.getInt("data.size()");
+      //System.out.println( s);
+      Assert.assertEquals(lengthOfArray,1);
 
 // 2. Verify the count of results being returned
 

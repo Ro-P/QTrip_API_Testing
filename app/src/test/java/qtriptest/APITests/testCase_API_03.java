@@ -12,7 +12,11 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.UUID;
 
 public class testCase_API_03 {
@@ -57,11 +61,24 @@ public class testCase_API_03 {
     userId = jsonpath.getString("data.id");
 
    //     2. Perform a booking using a post call
+//    Calendar cal = Calendar.getInstance();
+//    System.out.println("current date: " + cal.getTime());
+//    cal.add(Calendar.DATE, 7);
+//    System.out.println("7 days later: " + cal.getTime());
+
+LocalDateTime ldt = LocalDateTime.now().plusDays(1);
+DateTimeFormatter formmat1 = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+System.out.println(ldt);
+// Output "2018-05-12T17:21:53.658"
+
+String formatter = formmat1.format(ldt);
+System.out.println(formatter);
+
    JSONObject payloadResv = new JSONObject();
 
    payloadResv.put("userId",userId);
    payloadResv.put("name","testuser");
-   payloadResv.put("date","2022-29-10");
+   payloadResv.put("date",formatter);
    payloadResv.put("person","1");
    payloadResv.put("adventure","2447910730");
 
